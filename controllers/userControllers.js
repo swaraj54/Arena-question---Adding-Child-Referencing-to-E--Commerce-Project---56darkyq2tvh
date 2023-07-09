@@ -36,6 +36,27 @@ Sample output from the controller should be:
 const addProductToUser = async (req, res) => {
     try {
         //Write your code here.
+        const { userId, productId } = req.body;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                status: 'error',
+                message: "User not found"
+            })
+        }
+
+        user.productsPurchased.push(productId);
+
+        await user.save();
+        return res.status(200).json({
+            status: "success",
+            message: "Product Purchased Successfully",
+            data: {
+                user
+            }
+        })
+
     } catch (error) {
         res.status(400).json({
             message: "Couldn't Fetch the Data",

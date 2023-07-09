@@ -21,6 +21,8 @@ const router = express.Router();
 */
 // Add your route here 
 
+router.patch('/add-product', addProductToUser)
+
 // Public Routes
 router.post("/", grantAccessTo(['guest', 'admin', 'superadmin']), createUser);
 router.get("/:id", grantAccessTo(['user', 'admin', 'superadmin']), getUserByID);
